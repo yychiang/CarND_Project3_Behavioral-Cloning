@@ -36,17 +36,17 @@ y_data=np.copy(csvdata['steering'])
 
 
 
-def imgRead(imagepath):
+def imgRead(imgpath):
 	# the following process is consistent with "drive.py"
 	# (1) read image
 	# (2) crop image
 	# (3) resize image
 	# (4) normalize image
-    oriimage = mpimg.imread(imagepath, 1)
-    crop_face = oriimage[32:135, :]
-    newimage = imresize(crop_face, .65, interp='bilinear', mode=None)
-    newimage = newimage/255-0.5
-    return newimage
+    img = mpimg.imread(imgpath, 1)
+    cropimg = img[32:135, :]
+    resimg = imresize(cropimg, .65, interp='bilinear', mode=None)
+    image = -0.5 + resimg/255
+    return image
 
 def imgFlip(im):
     # for data augmentation
@@ -57,14 +57,14 @@ def imgFlip(im):
 def collectData(x,y,number=5000):
     # We use this function to collect reasonable training data 
     # from original data set. That is, a steering angle that is big enough
-    # will be collected. "Big enough" means its 2-norm is bigger than 0.01
+    # will be collected. "Big enough" means its 2-norm is bigger than 0.001
     # X,y: original data
     # number: output size
     images = []
     steering = []
     for xi, yi in zip(x, y):
         probability = random.random()
-        if (probability > 0.5 or abs(yi) > 0.01):
+        if (probability > 0.5 or abs(yi) > 0.001):
             images.append(xi)
             steering.append(yi)
 
