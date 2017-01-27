@@ -1,5 +1,10 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
+# This work is inspired by my mentor (https://medium.com/@deniserjames) and the following papers:
+# https://medium.com/@deniserjames/denise-james-bsee-msee-5beb448cf184#.85ep0mupg
+# https://chatbotslife.com/using-augmentation-to-mimic-human-driving-496b569760a9#.el6uog78o
+# http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf
+# I cannot finish this work without your help.
+# Thank you all!
 
 # import the necessary packages ===============================================
 
@@ -145,14 +150,16 @@ def dNNModel(): # NVIDIA Model
     model.add(Convolution2D(64,3,3, subsample = (1,1),border_mode='valid',init='he_normal'))
     model.add(ELU())
     model.add(Flatten())
-    model.add(Dense(100,name='hidden1', init='he_normal'))
+    model.add(Dense(100, init='he_normal'))
     model.add(ELU())
-    model.add(Dense(50,name='hidden2', init='he_normal'))
+    model.add(Dense(50, init='he_normal'))
     model.add(ELU())
-    model.add(Dense(10,name='hidden3',init='he_normal'))
+    model.add(Dense(10, init='he_normal'))
     model.add(ELU())
-    model.add(Dense(1, name='output', init='he_normal'))
+    model.add(Dense(1, init='he_normal'))
     adam = Adam(lr=1e-4, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
+    # The following learning are compared: lr=1e-3 and lr=1e-4. lr=1e-4 is better.
+    
     model.compile(optimizer=adam, loss='mse')
     return model
 
