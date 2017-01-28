@@ -30,8 +30,9 @@ Training data is collected as the following method:
 * 8th, fully-connected layer, 50 neurons;
 * 9th, fully-connected layer, 10 neurons;
 * 10th, fully-connected layer, 1 neuron.
+
 ## Training approach
-'Adam' optimization is adopted.
+* 'Adam' optimization is adopted.
 
 ## Dropout layers:
 I have tried to add dropout layers after conv layers, but I feel this problem cannot be improved via dropout layers.
