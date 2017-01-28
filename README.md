@@ -15,7 +15,7 @@ I collected my own data and used the collected data completely for training my d
 Training data is collected as the following method:
 * (1) Firset round, let the car runs on the center of the road, and set steerings as 0;
 * (2) Second round, let the car runs on the right hand side of the road, and set steerings as -0.5;
-* (3) Yhird round, let the car runs on the left hand side of the road, and set steerings as +0.5.
+* (3) Third round, let the car runs on the left hand side of the road, and set steerings as +0.5.
 * Note: Please see my driving_log.csv file.
 
 ## Network Architecture
