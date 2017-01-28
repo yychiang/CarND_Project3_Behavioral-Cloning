@@ -19,5 +19,13 @@ Training data is collected as the following method:
 * Note: Please see my driving_log.csv file.
 
 ## Network Architecture
+* input shape is: 66x208x3 (HxWxD)
+* 1st, conv layer: 24 filters with shape 5x5x3 (HxWxD), stride 2, same padding;
+* 2nd, conv layer: 36 filters with shape 5x5x24 (HxWxD), stride 2, same padding;
+* 3rd, conv layer: 48 filters with shape 5x5x36 (HxWxD), stride 2, valid padding;
+* 4th, conv layer: 64 filters with shape 3x3x48 (HxWxD), stride 1, valid padding;
+* 5th, conv layer: 64 filters with shape 3x3x64 (HxWxD), stride 1, valid padding;
+* 6th, flatten: 
+
 
 ## Training approach
