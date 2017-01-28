@@ -19,13 +19,19 @@ Training data is collected as the following method:
 * Note: Please see my driving_log.csv file.
 
 ## Network Architecture
-* input shape is: 66x208x3 (HxWxD)
-* 1st, conv layer: 24 filters with shape 5x5x3 (HxWxD), stride 2, same padding;
-* 2nd, conv layer: 36 filters with shape 5x5x24 (HxWxD), stride 2, same padding;
-* 3rd, conv layer: 48 filters with shape 5x5x36 (HxWxD), stride 2, valid padding;
-* 4th, conv layer: 64 filters with shape 3x3x48 (HxWxD), stride 1, valid padding;
-* 5th, conv layer: 64 filters with shape 3x3x64 (HxWxD), stride 1, valid padding;
-* 6th, flatten: 
-
-
+* input planes: 3@66x208
+* 1st, conv layer: 5x5 kernel, normalized input planes 3@66x208, stride 2, same padding;
+* 2nd, conv layer: 5x5 kernel, convolutional feature map 24@33x104, stride 2, same padding;
+* 3rd, conv layer: 5x5 kernel, convolutional feature map 36@17x52, stride 2, valid padding;
+* 4th, conv layer: 3x3 kernel, convolutional feature map 48@7x24, stride 1, valid padding;
+* 5th, conv layer: 3x3 kernel, convolutional feature map 64@5x22, stride 1, valid padding;
+* 6th, flatten: the output of 5th conv layer is (3,20,64), which is flattened to 3840 neurons.
+* 7th, fully-connected layer, 100 neurons;
+* 8th, fully-connected layer, 50 neurons;
+* 9th, fully-connected layer, 10 neurons;
+* 10th, fully-connected layer, 1 neuron.
 ## Training approach
+'Adam' optimization is adopted.
+
+## Dropout layers:
+This problem cannot be improved via dropout layers.
