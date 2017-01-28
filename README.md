@@ -39,9 +39,10 @@ I have tried to add dropout layers after conv layers, but I feel this problem ca
 ## Acknowledgement
 
 This work is inspired by my mentor (https://medium.com/@deniserjames) and the following papers:
-https://medium.com/@deniserjames/denise-james-bsee-msee-5beb448cf184#.85ep0mupg
-https://chatbotslife.com/using-augmentation-to-mimic-human-driving-496b569760a9#.el6uog78o
-http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf
+* https://medium.com/@deniserjames/denise-james-bsee-msee-5beb448cf184#.85ep0mupg
+* https://chatbotslife.com/using-augmentation-to-mimic-human-driving-496b569760a9#.el6uog78o
+* http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf
+
 I cannot finish this work without your help.
 Thank you all!
 
