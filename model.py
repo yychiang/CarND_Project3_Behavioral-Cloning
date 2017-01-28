@@ -58,18 +58,19 @@ def imgFlip(im):
     flip = np.fliplr(im)
     return flip
 
+
 # Collect data ================================================================
 def collectData(x,y,number=5000):
     # We use this function to collect reasonable training data 
     # from original data set. That is, a steering angle that is big enough
-    # will be collected. "Big enough" means its 2-norm is bigger than 0.001
+    # will be collected. "Big enough" means its 2-norm is bigger than some value
     # X,y: original data
     # number: output size
     images = []
     steering = []
     for xi, yi in zip(x, y):
         probability = random.random()
-        if (probability > 0.5 or abs(yi) > 0.001):
+        if (probability > 0.5 or abs(yi) > 0.0):
             images.append(xi)
             steering.append(yi)
 
@@ -87,6 +88,59 @@ nb_columns = 208
 nb_channels = 3
 
 #Image Generator ==============================================================
+# def imgen(X,Y):
+    
+#     counter  = 0 
+#     while counter < len(X):
+        
+#         if counter==len(X):
+#             counter  = 0
+#             X, Y = shuffle(X, Y, random_state=0)
+#         for counter in range(len(X)): 
+#             y = Y[counter]
+           
+#             if y <  0.0:
+#                 randnum = random.random()
+#                 if randnum > 0.5:
+#                     imagepath = X[counter].split(' ')[2] #2
+#                     image = imgRead(imagepath)
+#                     y = 3*y  # P-control
+#                     if y<-1:
+#                         y=-1
+#                 else:
+#                     imagepath = X[counter].split(' ')[0]
+#                     image = imgRead(imagepath)             
+#             elif y > 0.0:
+#                 randnum = random.random()
+#                 if randnum > 0.5:
+#                     imagepath = X[counter].split(' ')[1] #1
+#                     image = imgRead(imagepath)
+#                     y = 3*y 
+#                     if y > 1:
+#                         y=1 
+#                 else:
+#                     imagepath = X[counter].split(' ')[0] 
+#                     image = imgRead(imagepath)                
+#             else:
+#                 imagepath = X[counter].split(' ')[0]
+#                 image = imgRead(imagepath)
+                  
+#             y = np.array([[y]])
+                
+#             if np.random.choice([True, False]):
+#                 image = imgFlip(image)
+#                 y = -y
+            
+#             image = image.reshape(1, nb_rows, nb_columns, nb_channels)
+#             yield image, y
+
+# Collect training data from simulator ========================================
+# Training data is collected as the following method:
+# (1) Firset round, let the car runs on the center of the road, and set steerings as 0;
+# (2) Second round, let the car runs on the right hand side of the road, and set steerings as -0.5;
+# (3) Yhird round, let the car runs on the left hand side of the road, and set steerings as +0.5.
+# (4) Please see my driving_log.csv file.
+
 def imgen(X,Y):
     
     counter  = 0 
@@ -97,39 +151,51 @@ def imgen(X,Y):
             X, Y = shuffle(X, Y, random_state=0)
         for counter in range(len(X)): 
             y = Y[counter]
-           
-            if y <  0.0:
+            if abs(y)<0.001: # the samples on the center of the road
                 randnum = random.random()
-                if randnum > 0.5:
-                    imagepath = X[counter].split(' ')[2] #2
+                if randnum> 0.67:
+                    imagepath = X[counter].split(' ')[2] #right
                     image = imgRead(imagepath)
-                    y = 3*y
-                    if y<-1:
-                        y=-1
+                    y=-0.35
+                elif randnum>0.33:
+                    imagepath = X[counter].split(' ')[1] #left
+                    image = imgRead(imagepath)
+                    y=0.35
                 else:
-                    imagepath = X[counter].split(' ')[0]
-                    image = imgRead(imagepath)             
-            elif y > 0.0:
+                    imagepath = X[counter].split(' ')[0] #center
+                    image = imgRead(imagepath)
+                    y=0.0      
+                    
+                if np.random.choice([True, False]):
+                    image = imgFlip(image)
+                    y = -y
+
+            elif y < -0.1 : # the samples on the right-side of the road
                 randnum = random.random()
-                if randnum > 0.5:
-                    imagepath = X[counter].split(' ')[1] #1
+                if randnum> 0.50:
+                    imagepath = X[counter].split(' ')[2] #right
                     image = imgRead(imagepath)
-                    y = 3*y 
-                    if y > 1:
-                        y=1 
+                    y= -0.8
                 else:
-                    imagepath = X[counter].split(' ')[0] 
-                    image = imgRead(imagepath)                
-            else:
-                imagepath = X[counter].split(' ')[0]
-                image = imgRead(imagepath)
-                  
+                    imagepath = X[counter].split(' ')[2] #right
+                    image = imgRead(imagepath)
+                    image = imgFlip(image) # flip: right--> left
+                    y= 0.8
+
+            elif y > 0.1: # the samples on the left-side of the road
+                randnum = random.random()
+                if randnum> 0.50:
+                    imagepath = X[counter].split(' ')[1] #left
+                    image = imgRead(imagepath)
+                    y= 0.8
+                else:
+                    imagepath = X[counter].split(' ')[1] #left
+                    image = imgRead(imagepath)
+                    image = imgFlip(image) # flip: left--> right
+                    y=-0.8
+
+
             y = np.array([[y]])
-                
-            if np.random.choice([True, False]):
-                image = imgFlip(image)
-                y = -y
-            
             image = image.reshape(1, nb_rows, nb_columns, nb_channels)
             yield image, y
 
