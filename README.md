@@ -8,34 +8,10 @@ The submitted files are as below:
 * drive.py - The script to drive the car. I make some modifications: resize and normalize images, reduce the throttle, etc. 
 * model.json - The model architecture.
 * model.h5 - The model weights.
-* README.md - explains how the training data were collected, the structure of my network, and training approach.
+* report.pdf - explains how the training data were collected, the structure of my network, and training approach.
+* README.md - lists the files included in this project.
 
-## How the training data were collected?
-I collected my own data and used the collected data completely for training my deep neural network.
-Training data is collected as the following method:
-* (1) First round, let the car runs on the center of the road, and set steering angles as 0;
-* (2) Second round, let the car runs on the right hand side of the road, and set steering angles as -0.5;
-* (3) Third round, let the car runs on the left hand side of the road, and set steering angles as +0.5.
-* Note: Please see my driving_log.csv file.
 
-## Network Architecture
-* input planes: 3@66x208
-* 1st, conv layer: 5x5 kernel, normalized input planes 3@66x208, stride 2, same padding;
-* 2nd, conv layer: 5x5 kernel, convolutional feature map 24@33x104, stride 2, same padding;
-* 3rd, conv layer: 5x5 kernel, convolutional feature map 36@17x52, stride 2, valid padding;
-* 4th, conv layer: 3x3 kernel, convolutional feature map 48@7x24, stride 1, valid padding;
-* 5th, conv layer: 3x3 kernel, convolutional feature map 64@5x22, stride 1, valid padding;
-* 6th, flatten: the output of 5th conv layer is (3,20,64), which is flattened to 3840 neurons.
-* 7th, fully-connected layer, 100 neurons;
-* 8th, fully-connected layer, 50 neurons;
-* 9th, fully-connected layer, 10 neurons;
-* 10th, fully-connected layer, 1 neuron.
-
-## Training approach
-* 'Adam' optimization is adopted.
-
-## Dropout layers:
-I have tried to add dropout layers after conv layers, but I feel this problem cannot be improved via dropout layers.
 
 ## Acknowledgement
 
