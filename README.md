@@ -11,7 +11,8 @@ The submitted files are as below:
 * report.pdf - explains how the training data were collected, the structure of my network, and training approach.
 * README.md - lists the files included in this project.
 
-
+# How to use that?
+>>>python drive.py model.json
 
 ## Acknowledgement
 
