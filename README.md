@@ -12,7 +12,7 @@ The submitted files are as below:
 * README.md - lists the files included in this project.
 
 # How to use that?
->>>python drive.py model.json
+type: >>> python drive.py model.json
 
 ## Acknowledgement
 
